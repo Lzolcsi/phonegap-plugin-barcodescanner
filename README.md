@@ -1,5 +1,7 @@
 # PhoneGap Plugin BarcodeScanner
 ================================
+Fork of phonegap/phonegap-plugin-barcodescanner.
+Since phonegap plugin barcodescanner was not beeing updated anymore.
 
 [![Build Status](https://travis-ci.org/phonegap/phonegap-plugin-barcodescanner.svg)](https://travis-ci.org/phonegap/phonegap-plugin-barcodescanner)
 
