@@ -70,6 +70,7 @@
 
 - (id)initWithPlugin:(CDVBarcodeScanner*)plugin callback:(NSString*)callback parentViewController:(UIViewController*)parentViewController alterateOverlayXib:(NSString *)alternateXib;
 - (void)scanBarcode;
+- (void)toggleTorch;
 - (void)barcodeScanSucceeded:(NSString*)text format:(NSString*)format;
 - (void)barcodeScanFailed:(NSString*)message;
 - (void)barcodeScanCancelled;
@@ -172,6 +173,7 @@
     BOOL showTorchButton = [options[@"showTorchButton"] boolValue];
     BOOL disableAnimations = [options[@"disableAnimations"] boolValue];
     BOOL disableSuccessBeep = [options[@"disableSuccessBeep"] boolValue];
+    BOOL torchOn = [options[@"torchOn"] boolValue];
 
     // We allow the user to define an alternate xib file for loading the overlay.
     NSString *overlayXib = options[@"overlayXib"];
@@ -217,6 +219,10 @@
     processor.formats = options[@"formats"];
 
     [processor performSelector:@selector(scanBarcode) withObject:nil afterDelay:0];
+
+    if(torchOn) {
+        [processor performSelector:@selector(toggleTorch) withObject:nil afterDelay:1.1];
+    }
 }
 
 //--------------------------------------------------------------------------
@@ -356,7 +362,7 @@ parentViewController:(UIViewController*)parentViewController
     if (@available(iOS 13.0, *)) {
         self.viewController.modalInPresentation = YES;
     }
-    
+
     // delayed [self openDialog];
     [self performSelector:@selector(openDialog) withObject:nil afterDelay:1];
 }
